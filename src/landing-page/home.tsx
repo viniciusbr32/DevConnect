@@ -1,7 +1,15 @@
+import { Features } from './componentes/features';
+import { Hero } from './componentes/hero';
+import { Project } from './componentes/project';
+import { Stats } from './componentes/statsList';
+
 export function Home() {
   return (
     <>
-      <p>Teste</p>
+      <Hero />
+      <Features />
+      <Stats />
+      <Project />
     </>
   );
 }
