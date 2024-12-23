@@ -1,4 +1,5 @@
 import { Features } from './componentes/features';
+import { GetStarted } from './componentes/getStarted';
 import { Hero } from './componentes/hero';
 import { Project } from './componentes/project';
 import { Stats } from './componentes/statsList';
@@ -12,6 +13,7 @@ export function Home() {
       <Stats />
       <Project />
       <Testimonial />
+      <GetStarted />
     </>
   );
 }
