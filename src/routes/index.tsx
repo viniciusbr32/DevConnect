@@ -1,3 +1,4 @@
+import { Dashboard } from '@/dashboard/dashboard';
 import { Layout } from '@/landing-page/componentes/layout';
 import { Home } from '@/landing-page/home';
 import { ProjectDetails } from '@/landing-page/pages/projectDetails';
@@ -28,5 +29,9 @@ export const router = createBrowserRouter([
   {
     path: '/signup',
     element: <SignUp />,
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
   },
 ]);
