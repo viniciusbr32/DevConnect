@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Code2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function GetStarted() {
   return (
@@ -11,7 +12,9 @@ export function GetStarted() {
           Junte-se a milhares de desenvolvedores e comece a criar projetos incríveis hoje mesmo.
         </p>
         <div className="flex justify-center gap-4">
-          <Button variant="secondary">Criar uma conta</Button>
+          <Button variant="secondary">
+            <Link to="/signup">Criar uma conta</Link>
+          </Button>
           <Button variant="default">Saiba mais</Button>
         </div>
       </div>
