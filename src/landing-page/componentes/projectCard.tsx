@@ -8,7 +8,7 @@ export function ProjectCard() {
   return (
     <>
       {featuredProjects.map((project) => (
-        <Link key={project.id} to={`/projeto/${project.description}`}>
+        <Link key={project.id} to={`/project/${project.id}`}>
           <div className="transition-all border rounded-lg bg-zinc-800 border-zinc-700 hover:border-emerald-500/50">
             <img src={project.imageUrl} alt={project.title} className="object-cover w-full h-48 rounded-t-lg" />
             <div className="p-6">
