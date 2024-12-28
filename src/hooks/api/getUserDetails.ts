@@ -21,5 +21,6 @@ export const useUserDetails = (token: string) => {
 		queryKey: ["user-details"],
 		queryFn: () => fetchUserDetails(token),
 		enabled: !!token,
+		retry: false,
 	});
 };

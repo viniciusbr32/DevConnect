@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLoginUser } from "@/hooks/api/useLoginUser";
-import { emailRegex } from "@/lib/regexUtils";
+
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Errors } from "../componentes/errors";
+import { useLoginUser } from "@/hooks/api/useLoginUser";
+import { emailRegex } from "@/utils/validators";
 
 interface LoginRequest {
 	email: string;
@@ -13,18 +14,16 @@ interface LoginRequest {
 }
 
 export function SignIn() {
+	const mutation = useLoginUser();
+
 	const {
 		register,
 		formState: { errors },
 		handleSubmit,
 	} = useForm<LoginRequest>();
 
-	const mutation = useLoginUser();
-
-	const handleLoginUser = (data: LoginRequest) => {
-		const { email, password } = data;
-		mutation.mutate({ email, password });
-		console.log(data);
+	const handleLoginUser = async (data: LoginRequest) => {
+		mutation.mutate(data);
 	};
 
 	return (

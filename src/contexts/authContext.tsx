@@ -1,5 +1,7 @@
+import { Loading } from "@/components/loading";
 import { useUserDetails } from "@/hooks/api/getUserDetails";
 import { useLoginUser } from "@/hooks/api/useLoginUser";
+import { getItem, removeItem, setItem } from "@/lib/storage";
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -27,24 +29,36 @@ interface AuthContextData {
 	login: (user: UserLogin) => Promise<LoginResponse>;
 	signOut: () => void;
 	isAuthenticated: boolean;
+	loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const [user, setUser] = useState<UserDetails | null>(null);
-
+	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
 
-	const token = localStorage.getItem("authToken") as string;
-	const { data } = useUserDetails(token);
+	const token = getItem("authToken") as string;
+
+	const { data, error, isLoading } = useUserDetails(token);
 	const { mutateAsync: userLogin } = useLoginUser();
 
 	useEffect(() => {
+		if (isLoading) {
+			return;
+		}
+
 		if (data) {
 			setUser(data);
 		}
-	}, [data]);
+		if (error) {
+			setUser(null);
+			removeItem("authToken");
+		}
+
+		setLoading(false);
+	}, [data, error, isLoading]);
 
 	const login = async (user: UserLogin): Promise<LoginResponse> => {
 		const response = await userLogin(user);
@@ -53,15 +67,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			name: response.name,
 			email: response.email,
 		});
-		localStorage.setItem("authToken", response.token);
+		setItem("authToken", response.token);
 		return response;
 	};
 
 	const signOut = () => {
 		setUser(null);
-		localStorage.removeItem("authToken");
-		navigate("/");
+		removeItem("authToken");
+		navigate("/signin");
 	};
+
+	if (loading) {
+		return <Loading />;
+	}
 
 	return (
 		<AuthContext.Provider
@@ -70,6 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				login,
 				signOut,
 				isAuthenticated: !!user,
+				loading,
 			}}
 		>
 			{children}

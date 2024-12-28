@@ -1,4 +1,5 @@
 import { api } from "@/api/api";
+import { setItem } from "@/lib/storage";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +23,7 @@ export function useLoginUser() {
 		mutationFn: async (userData: LoginData): Promise<LoginResponse> => {
 			try {
 				const response = await api.post("/session", userData);
-				localStorage.setItem("authToken", response.data.token);
+				setItem("authToken", response.data.token);
 				return response.data;
 			} catch (err: unknown) {
 				if (axios.isAxiosError(err)) {

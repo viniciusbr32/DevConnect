@@ -4,8 +4,9 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { Errors } from "../componentes/errors";
-import { emailRegex } from "@/lib/regexUtils";
+
 import { useRegisterUser } from "@/hooks/api/useRegisterUser";
+import { emailRegex } from "@/utils/validators";
 
 interface SignupRequest {
 	name: string;
