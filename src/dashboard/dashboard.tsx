@@ -1,6 +1,15 @@
-import { useAuth } from "@/contexts/authContext";
+import { DashboardLayout } from "./componentes/dashboardLayout";
+import { StatsGrid } from "./componentes/statGrid";
 export function Dashboard() {
-	const { user } = useAuth();
-
-	return <p>Bem vindo ao dashboard {user?.name}</p>;
+	return (
+		<DashboardLayout>
+			<div className="p-6 space-y-6">
+				<div className="flex items-center justify-between">
+					<h1 className="text-2xl font-bold text-white">Dashboard</h1>
+					<span className="text-zinc-400">Bem-vindo de volta!</span>
+				</div>
+				<StatsGrid />
+			</div>
+		</DashboardLayout>
+	);
 }

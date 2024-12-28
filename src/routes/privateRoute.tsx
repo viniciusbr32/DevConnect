@@ -1,10 +1,23 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { useAuth } from "@/contexts/authContext";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export function PrivateRoute() {
-	const isAutheticated = localStorage.getItem("authToken");
+	const navigate = useNavigate();
+	const { user, loading } = useAuth();
 
-	if (!isAutheticated) {
-		return <Navigate to="/signin" />;
+	useEffect(() => {
+		if (!loading && !user) {
+			navigate("/");
+		}
+	}, [loading, user, navigate]);
+
+	if (loading) {
+		return <div>Loading...</div>;
+	}
+
+	if (!user) {
+		return null;
 	}
 
 	return <Outlet />;
