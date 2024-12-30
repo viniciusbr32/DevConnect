@@ -1,4 +1,6 @@
+import { ActivityFeed } from "./componentes/activityFeed";
 import { DashboardLayout } from "./componentes/dashboardLayout";
+import { ProjectProgress } from "./componentes/projectProgress";
 import { RecentApplications } from "./componentes/recentesApplications";
 import { RecentProjects } from "./componentes/recentesProjects";
 import { StatsGrid } from "./componentes/statGrid";
@@ -15,6 +17,13 @@ export function Dashboard() {
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<RecentProjects />
 					<RecentApplications />
+				</div>
+
+				<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+					<div className="lg:col-span-2">
+						<ProjectProgress />
+					</div>
+					<ActivityFeed />
 				</div>
 			</div>
 		</DashboardLayout>
