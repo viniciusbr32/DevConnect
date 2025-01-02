@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { Errors } from "../componentes/errors";
 import { useLoginUser } from "@/hooks/api/useLoginUser";
 import { emailRegex } from "@/utils/validators";
+import { Loading } from "@/components/loading";
 
 interface LoginRequest {
 	email: string;
@@ -72,12 +73,14 @@ export function SignIn() {
 						{errors.password && <Errors message={errors.password.message} />}
 					</div>
 
+					{mutation.isError && <Errors message={mutation.error.message} />}
+
 					<Button
 						variant="default"
 						type="submit"
 						className="w-full bg-emerald-500 hover:bg-emerald-700"
 					>
-						Entrar
+						{mutation.isPending ? <Loading /> : "Entrar"}
 					</Button>
 				</form>
 

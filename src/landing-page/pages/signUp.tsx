@@ -7,6 +7,7 @@ import { Errors } from "../componentes/errors";
 
 import { useRegisterUser } from "@/hooks/api/useRegisterUser";
 import { emailRegex } from "@/utils/validators";
+import { Loading } from "@/components/loading";
 
 interface SignupRequest {
 	name: string;
@@ -93,13 +94,15 @@ export function SignUp() {
 						{errors.password && <Errors message={errors.password.message} />}
 					</div>
 
+					{mutation.isError && <Errors message={mutation.error?.message} />}
+
 					<Button
 						variant="default"
 						type="submit"
 						className="w-full bg-emerald-500 hover:bg-emerald-600"
 						disabled={mutation.isPending}
 					>
-						{mutation.isPending ? "Carregando" : "Registrar"}
+						{mutation.isPending ? <Loading /> : "Registrar"}
 					</Button>
 				</form>
 
