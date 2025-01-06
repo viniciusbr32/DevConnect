@@ -12,7 +12,3 @@ export function formatPublishedDate(isoDate: string) {
 
 	return `Publicado ${cleanDistance}`;
 }
-
-// Exemplo de uso:
-const isoDate = "2024-01-01T10:00:00Z";
-console.log(formatPublishedDate(isoDate));
