@@ -1,7 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { useFetchProject } from "@/hooks/api/getAllProjects";
 import { Users, Calendar } from "lucide-react";
-
 import { Link } from "react-router-dom";
 
 import image from "../../assets/placeholder.svg";
