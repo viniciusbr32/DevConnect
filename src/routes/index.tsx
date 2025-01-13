@@ -7,6 +7,7 @@ import { SignUp } from "@/landing-page/pages/signUp";
 import { createBrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "./privateRoute";
 import { AuthProvider } from "@/contexts/authContext";
+import { CreateProject } from "@/dashboard/pages/createProject";
 
 export const router = createBrowserRouter([
 	{
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
 			{
 				index: true,
 				element: <Dashboard />,
+			},
+			{
+				path: "/dashboard/novo-projeto",
+				element: <CreateProject />,
 			},
 		],
 	},

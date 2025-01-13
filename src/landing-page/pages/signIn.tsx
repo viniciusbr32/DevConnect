@@ -8,6 +8,7 @@ import { Errors } from "../componentes/errors";
 import { useLoginUser } from "@/hooks/api/useLoginUser";
 import { emailRegex } from "@/utils/validators";
 import { Loading } from "@/components/loading";
+import { useToast } from "@/hooks/use-toast";
 
 interface LoginRequest {
 	email: string;
@@ -15,6 +16,7 @@ interface LoginRequest {
 }
 
 export function SignIn() {
+	const { toast } = useToast();
 	const mutation = useLoginUser();
 
 	const {
@@ -24,7 +26,15 @@ export function SignIn() {
 	} = useForm<LoginRequest>();
 
 	const handleLoginUser = async (data: LoginRequest) => {
-		mutation.mutate(data);
+		mutation.mutate(data, {
+			onSuccess: () => {
+				toast({
+					variant: "sucess",
+					description: "Login Efetuado com sucesso",
+					duration: 500,
+				});
+			},
+		});
 	};
 
 	return (

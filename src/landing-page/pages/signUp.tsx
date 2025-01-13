@@ -8,6 +8,7 @@ import { Errors } from "../componentes/errors";
 import { useRegisterUser } from "@/hooks/api/useRegisterUser";
 import { emailRegex } from "@/utils/validators";
 import { Loading } from "@/components/loading";
+import { useToast } from "@/hooks/use-toast";
 
 interface SignupRequest {
 	name: string;
@@ -17,6 +18,7 @@ interface SignupRequest {
 
 export function SignUp() {
 	const mutation = useRegisterUser();
+	const { toast } = useToast();
 
 	const {
 		register,
@@ -26,7 +28,18 @@ export function SignUp() {
 
 	const handleRegister = (data: SignupRequest) => {
 		const { name, email, password } = data;
-		mutation.mutate({ name, email, password });
+		mutation.mutate(
+			{ name, email, password },
+			{
+				onSuccess: () => {
+					toast({
+						description: "Registro Efetuado com sucesso",
+						variant: "sucess",
+						duration: 500,
+					});
+				},
+			},
+		);
 	};
 
 	return (

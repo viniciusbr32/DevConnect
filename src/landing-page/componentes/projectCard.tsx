@@ -14,17 +14,17 @@ export function ProjectCard() {
 		<>
 			{data.map((project) => (
 				<Link key={project.id} to={`/project/${project.id}`}>
-					<div className="transition-all border rounded-lg bg-zinc-800 border-zinc-700 hover:border-emerald-500/50">
+					<div className="truncate transition-all border rounded-lg bg-zinc-800 border-zinc-700 hover:border-emerald-500/50">
 						<img
 							src={image}
 							alt={project.title}
 							className="object-cover w-full h-48 rounded-t-lg"
 						/>
-						<div className="p-6">
+						<div className="p-6 ">
 							<h3 className="mb-2 text-xl font-semibold text-white">
 								{project.title}
 							</h3>
-							<p className="mb-4 text-zinc-400 line-clamp-2">
+							<p className="mb-4 text-zinc-400 line-clamp-2 ">
 								{project.description}
 							</p>
 							<div className="flex flex-wrap gap-2 mb-4">
