@@ -9,6 +9,8 @@ import { useRegisterUser } from "@/hooks/api/useRegisterUser";
 import { emailRegex } from "@/utils/validators";
 import { Loading } from "@/components/loading";
 import { useToast } from "@/hooks/use-toast";
+import { TechSelector } from "@/components/techSelector";
+import { useState } from "react";
 
 interface SignupRequest {
 	name: string;
@@ -17,6 +19,8 @@ interface SignupRequest {
 }
 
 export function SignUp() {
+	const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+
 	const mutation = useRegisterUser();
 	const { toast } = useToast();
 
@@ -87,6 +91,12 @@ export function SignUp() {
 						/>
 						{errors.email && <Errors message={errors.email.message} />}
 					</div>
+
+					<TechSelector
+						selectedTechs={selectedTechs}
+						setSelectedTechs={setSelectedTechs}
+						label="Tecnologias que você conhece"
+					/>
 
 					<div className="space-y-2">
 						<Label htmlFor="password" className="text-gray-300">

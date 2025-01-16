@@ -10,13 +10,37 @@ import image from "../../assets/placeholder.svg";
 import { formatPublishedDate } from "@/utils/formatedData";
 import { ExternalLink } from "../componentes/externalLink";
 import { InfoBlock } from "../componentes/infoBlock";
+import { useEffect, useState } from "react";
+import { ApplicationModal } from "@/components/modals/ApplicationModal";
+import { useCandidateProject } from "@/hooks/api/useCandidateProject";
+import { StatsProject } from "../componentes/statsProject";
+
+interface CandidateData {
+	userId: string;
+	projectId: string;
+}
 
 export function ProjectDetails() {
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const mutation = useCandidateProject();
+
 	const { id } = useParams();
 
 	if (!id) return;
 
 	const { data } = useFetchProjectDetails(id);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
+	const handleApplicationSubmit = (data: CandidateData) => {
+		mutation.mutate(data, {
+			onSuccess: () => {
+				setIsModalOpen(false);
+			},
+		});
+	};
 
 	return (
 		<>
@@ -42,10 +66,11 @@ export function ProjectDetails() {
 								/>
 
 								<div className="p-8">
-									<div className="flex items-center justify-between mb-6">
-										<h1 className="text-3xl font-bold text-white">
+									<div className="flex flex-wrap items-center justify-between mb-6">
+										<h1 className="text-2xl font-bold text-white truncate">
 											{data.title}
 										</h1>
+
 										<div className="flex items-center space-x-4">
 											<ExternalLink
 												url={data.url_github}
@@ -100,20 +125,15 @@ export function ProjectDetails() {
 									Equipe Atual
 								</h2>
 								<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-									{/* biome-ignore lint/a11y/useValidAriaRole: <explanation> */}
-									<TeamMemberCard
-										name="Maria Silva"
-										role="Tech Lead"
-										avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
-										tech={["React", "Node.js"]}
-									/>
-									{/* biome-ignore lint/a11y/useValidAriaRole: <explanation> */}
-									<TeamMemberCard
-										name="João Santos"
-										role="Frontend Developer"
-										avatar="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=150&h=150&q=80"
-										tech={["React", "TypeScript"]}
-									/>
+									{data.applications.map((member) => (
+										<TeamMemberCard
+											key={member.user.name}
+											name={member.user.name}
+											responsibility="Tech Lead"
+											avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+											tech={member.user.skills.map((tech) => tech.name)}
+										/>
+									))}
 								</div>
 							</div>
 						</div>
@@ -131,6 +151,7 @@ export function ProjectDetails() {
 								<Button
 									variant="secondary"
 									className="w-full text-white bg-emerald-600"
+									onClick={() => setIsModalOpen(true)}
 								>
 									Candidatar-se ao Projeto
 								</Button>
@@ -155,27 +176,20 @@ export function ProjectDetails() {
 								</div>
 							</div>
 
-							<div className="p-6 border bg-zinc-800 rounded-xl border-zinc-700">
-								<h2 className="mb-4 text-xl font-semibold text-white">
-									Estatísticas
-								</h2>
-								<div className="space-y-4">
-									<div className="flex items-center justify-between">
-										<span className="text-zinc-400">Candidaturas</span>
-										<span className="font-medium text-white">12</span>
-									</div>
-									<div className="flex items-center justify-between">
-										<span className="text-zinc-400">Vagas Restantes</span>
-										<span className="font-medium text-white">2</span>
-									</div>
-									<div className="flex items-center justify-between">
-										<span className="text-zinc-400">Visualizações</span>
-										<span className="font-medium text-white">245</span>
-									</div>
-								</div>
-							</div>
+							<StatsProject
+								candidates={data._count.applications}
+								remainingPositions={data.remainingSpots}
+							/>
 						</div>
 					</div>
+
+					<ApplicationModal
+						isOpen={isModalOpen}
+						onClose={() => setIsModalOpen(false)}
+						projectTitle={data.title}
+						onSubmit={handleApplicationSubmit}
+						projectId={id}
+					/>
 				</div>
 			)}
 		</>

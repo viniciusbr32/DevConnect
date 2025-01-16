@@ -1,6 +1,6 @@
 import { Loading } from "@/components/loading";
-import { useUserDetails } from "@/hooks/api/getUserDetails";
-import { useLoginUser } from "@/hooks/api/useLoginUser";
+import { type Skills, useUserDetails } from "@/hooks/api/getUserDetails";
+import { type LoginResponse, useLoginUser } from "@/hooks/api/useLoginUser";
 import { getItem, removeItem, setItem } from "@/lib/storage";
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -15,13 +15,7 @@ interface UserDetails {
 	name: string;
 	email: string;
 	id: string;
-}
-
-interface LoginResponse {
-	id: string;
-	name: string;
-	email: string;
-	token: string;
+	skills: Skills[];
 }
 
 interface AuthContextData {
@@ -62,11 +56,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 	const login = async (user: UserLogin): Promise<LoginResponse> => {
 		const response = await userLogin(user);
-		setUser({
-			id: response.id,
-			name: response.name,
-			email: response.email,
-		});
 		setItem("authToken", response.token);
 		return response;
 	};

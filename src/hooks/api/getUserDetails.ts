@@ -1,10 +1,15 @@
 import { api } from "@/api/api";
 import { useQuery } from "@tanstack/react-query";
 
+export interface Skills {
+	name: string;
+}
+
 interface MeProps {
 	name: string;
 	id: string;
 	email: string;
+	skills: Skills[];
 }
 
 async function fetchUserDetails(token: string): Promise<MeProps> {

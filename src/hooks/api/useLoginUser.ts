@@ -9,7 +9,7 @@ interface LoginData {
 	password: string;
 }
 
-interface LoginResponse {
+export interface LoginResponse {
 	id: string;
 	name: string;
 	email: string;

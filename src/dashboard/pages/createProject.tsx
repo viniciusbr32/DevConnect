@@ -1,10 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
 import { DashboardLayout } from "../componentes/dashboardLayout";
-import { TECH_OPTIONS } from "@/constantes/techOptions";
 import { useState } from "react";
-import { X } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { PROJECT_LEVELS, type ProjectLevel } from "@/constantes/projectLevels";
 import { useForm } from "react-hook-form";
@@ -13,6 +10,7 @@ import { useCreateProject } from "@/hooks/api/useCreateProject";
 import { useAuth } from "@/contexts/authContext";
 import { useToast } from "@/hooks/use-toast";
 import { Loading } from "@/components/loading";
+import { TechSelector } from "@/components/techSelector";
 
 interface ProjectTypes {
 	title: string;
@@ -24,30 +22,16 @@ interface ProjectTypes {
 }
 
 export function CreateProject() {
-	const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
-	const [showTechDropdown, setShowTechDropdown] = useState(false);
 	const [projectLevel, setProjectLevel] = useState<ProjectLevel>("BEGINNER");
+	const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
 	const { toast } = useToast();
-
 	const { user } = useAuth();
-
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 		reset,
 	} = useForm<ProjectTypes>();
-
-	const handleTechSelect = (tech: string) => {
-		if (!selectedTechs.includes(tech)) {
-			setSelectedTechs([...selectedTechs, tech]);
-		}
-		setShowTechDropdown(false);
-	};
-
-	const handleRemoveTech = (techToRemove: string) => {
-		setSelectedTechs(selectedTechs.filter((tech) => tech !== techToRemove));
-	};
 
 	const mutation = useCreateProject();
 
@@ -95,7 +79,7 @@ export function CreateProject() {
 							Informações Básicas
 						</h2>
 
-						<div className="space-y-4 ">
+						<div className="space-y-4">
 							<div className="space-y-2">
 								<Label
 									htmlFor="title-project"
@@ -161,86 +145,42 @@ export function CreateProject() {
 									min={new Date().toISOString().split("T")[0]}
 								/>
 							</div>
+
 							{mutation.error && <Errors message={mutation.error.message} />}
 
+							<TechSelector
+								selectedTechs={selectedTechs}
+								setSelectedTechs={setSelectedTechs}
+								label="Tecnologias necessarias"
+							/>
+
 							<div className="space-y-2">
-								<Label
-									htmlFor="techs"
+								<label
+									htmlFor="projectLevel"
 									className="block text-sm font-medium text-zinc-300"
 								>
-									Tecnologias Necessárias
-								</Label>
-								<div className="relative">
-									<button
-										type="button"
-										onClick={() => setShowTechDropdown(!showTechDropdown)}
-										className="w-full px-3 py-2 text-left text-white border rounded-md bg-zinc-700 border-zinc-600 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-									>
-										Selecionar tecnologias
-									</button>
-
-									{showTechDropdown && (
-										<div className="absolute z-10 w-full mt-1 overflow-auto border rounded-md shadow-lg bg-zinc-700 border-zinc-600 max-h-60">
-											{TECH_OPTIONS.map((tech) => (
-												<button
-													key={tech}
-													type="button"
-													onClick={() => handleTechSelect(tech)}
-													className="w-full px-4 py-2 text-left text-white hover:bg-zinc-600 focus:outline-none"
-												>
-													{tech}
-												</button>
-											))}
-										</div>
-									)}
-									{/* Lista de tecnologias selecionadas */}
-									<div className="flex flex-wrap gap-2 mt-2">
-										{selectedTechs.map((tech) => (
-											<span
-												key={tech}
-												className="inline-flex items-center gap-1 px-3 py-1 text-sm rounded-full bg-emerald-500/10 text-emerald-400"
-											>
-												{tech}
-												<button
-													type="button"
-													onClick={() => handleRemoveTech(tech)}
-													className="hover:text-emerald-300"
-												>
-													<X className="w-3 h-3" />
-												</button>
-											</span>
-										))}
-									</div>
-								</div>
-
-								<div className="space-y-2">
-									<label
-										htmlFor="projectLevel"
-										className="block text-sm font-medium text-zinc-300"
-									>
-										Nível do Projeto
-									</label>
-									<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-										{PROJECT_LEVELS.map((level) => (
-											<button
-												key={level.value}
-												type="button"
-												onClick={() => setProjectLevel(level.value)}
-												className={`p-4 rounded-lg border ${
-													projectLevel === level.value
-														? "border-emerald-500 bg-emerald-500/10"
-														: "border-zinc-700 hover:border-zinc-600"
-												} text-left transition-colors`}
-											>
-												<h3 className="mb-1 font-medium text-white">
-													{level.label}
-												</h3>
-												<p className="text-sm text-zinc-400">
-													{level.description}
-												</p>
-											</button>
-										))}
-									</div>
+									Nível do Projeto
+								</label>
+								<div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+									{PROJECT_LEVELS.map((level) => (
+										<button
+											key={level.value}
+											type="button"
+											onClick={() => setProjectLevel(level.value)}
+											className={`p-4 rounded-lg border ${
+												projectLevel === level.value
+													? "border-emerald-500 bg-emerald-500/10"
+													: "border-zinc-700 hover:border-zinc-600"
+											} text-left transition-colors`}
+										>
+											<h3 className="mb-1 font-medium text-white">
+												{level.label}
+											</h3>
+											<p className="text-sm text-zinc-400">
+												{level.description}
+											</p>
+										</button>
+									))}
 								</div>
 							</div>
 
@@ -256,7 +196,7 @@ export function CreateProject() {
 										required: "O campo é obrigatorio",
 										max: {
 											value: 5,
-											message: "maximo 5 Desenvolvedores",
+											message: "máximo 5 Desenvolvedores",
 										},
 									})}
 									type="number"

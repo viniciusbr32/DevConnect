@@ -10,9 +10,22 @@ interface CreatedBy {
 	name: string;
 }
 
+interface Skills {
+	name: string;
+}
+
+interface Application {
+	user: {
+		name: string;
+		skills: Skills[];
+	};
+}
+
 interface Project {
-	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-	applications: any[]; // Pode ser especificado mais tarde com os detalhes das aplicações
+	applications: Application[];
+	_count: {
+		applications: number;
+	};
 	title: string;
 	technologies: Technology[];
 	description: string;
@@ -22,6 +35,7 @@ interface Project {
 	web_site: string;
 	url_github: string;
 	level: string;
+	remainingSpots: number;
 }
 
 async function fetchProjectDetails(id: string): Promise<Project> {

@@ -13,10 +13,10 @@ export function ExternalLink({ url, title, IconComponent }: ExternalLinkProps) {
 			href={formattedUrl}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="text-zinc-400 hover:text-emerald-500"
+			className="text-zinc-400 hover:text-emerald-500 "
 			title={title}
 		>
-			<IconComponent className="w-6 h-6" />
+			<IconComponent className="w-6 h-6 " />
 		</a>
 	);
 }

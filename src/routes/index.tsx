@@ -12,7 +12,11 @@ import { CreateProject } from "@/dashboard/pages/createProject";
 export const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Layout />,
+		element: (
+			<AuthProvider>
+				<Layout />
+			</AuthProvider>
+		),
 		children: [
 			{
 				index: true,
