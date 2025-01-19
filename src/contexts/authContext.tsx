@@ -1,6 +1,7 @@
 import { Loading } from "@/components/loading";
 import { type Skills, useUserDetails } from "@/hooks/api/getUserDetails";
 import { type LoginResponse, useLoginUser } from "@/hooks/api/useLoginUser";
+import { toast } from "@/hooks/use-toast";
 import { getItem, removeItem, setItem } from "@/lib/storage";
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -63,7 +64,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const signOut = () => {
 		setUser(null);
 		removeItem("authToken");
-		navigate("/signin");
+		toast({
+			description: "Deslogou com sucesso",
+			duration: 500,
+			variant: "sucess",
+		});
+		navigate("/");
 	};
 
 	if (loading) {
