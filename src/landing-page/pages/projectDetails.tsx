@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { ApplicationModal } from "@/components/modals/ApplicationModal";
 import { useCandidateProject } from "@/hooks/api/useCandidateProject";
 import { StatsProject } from "../componentes/statsProject";
+import { useAuth } from "@/contexts/authContext";
 
 interface CandidateData {
 	userId: string;
@@ -21,6 +22,8 @@ interface CandidateData {
 }
 
 export function ProjectDetails() {
+	const { isAuthenticated } = useAuth();
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const mutation = useCandidateProject();
 
@@ -183,13 +186,16 @@ export function ProjectDetails() {
 						</div>
 					</div>
 
-					<ApplicationModal
-						isOpen={isModalOpen}
-						onClose={() => setIsModalOpen(false)}
-						projectTitle={data.title}
-						onSubmit={handleApplicationSubmit}
-						projectId={id}
-					/>
+					{!isAuthenticated && <p>Faça o login</p>}
+					{isAuthenticated && (
+						<ApplicationModal
+							isOpen={isModalOpen}
+							onClose={() => setIsModalOpen(false)}
+							projectTitle={data.title}
+							onSubmit={handleApplicationSubmit}
+							projectId={id}
+						/>
+					)}
 				</div>
 			)}
 		</>

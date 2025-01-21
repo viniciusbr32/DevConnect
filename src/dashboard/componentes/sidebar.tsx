@@ -1,11 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {
-	LayoutDashboard,
-	FolderPlus,
-	Users,
-	MessageSquare,
-	Settings,
-} from "lucide-react";
+import { LayoutDashboard, FolderPlus, Users, Settings } from "lucide-react";
 
 export function Sidebar() {
 	const menuItems = [
@@ -23,11 +17,6 @@ export function Sidebar() {
 			icon: <Users className="w-5 h-5" />,
 			label: "Candidaturas",
 			path: "/dashboard/candidaturas",
-		},
-		{
-			icon: <MessageSquare className="w-5 h-5" />,
-			label: "Mensagens",
-			path: "/dashboard/mensagens",
 		},
 		{
 			icon: <Settings className="w-5 h-5" />,

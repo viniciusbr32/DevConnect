@@ -33,7 +33,7 @@ export function useLoginUser() {
 			}
 		},
 		onSuccess() {
-			navigate("/dashboard");
+			navigate("/");
 		},
 		onError: (error: Error) => {
 			console.log(error);

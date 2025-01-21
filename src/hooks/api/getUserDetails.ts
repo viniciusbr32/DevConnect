@@ -1,18 +1,30 @@
 import { api } from "@/api/api";
 import { useQuery } from "@tanstack/react-query";
 
-export interface Skills {
-	name: string;
-}
-
-interface MeProps {
-	name: string;
+export interface Technology {
 	id: string;
-	email: string;
-	skills: Skills[];
+	name: string;
 }
 
-async function fetchUserDetails(token: string): Promise<MeProps> {
+export interface Project {
+	id: string;
+	title: string;
+	technologies: Technology[];
+}
+
+export interface SkillsUser {
+	name: string;
+}
+
+export interface UserDetails {
+	name: string;
+	email: string;
+	id: string;
+	skills: SkillsUser[];
+	projects: Project[];
+}
+
+async function fetchUserDetails(token: string): Promise<UserDetails> {
 	const response = await api.get("/me", {
 		headers: {
 			Authorization: `Bearer ${token}`,
@@ -22,7 +34,7 @@ async function fetchUserDetails(token: string): Promise<MeProps> {
 }
 
 export const useUserDetails = (token: string) => {
-	return useQuery<MeProps, Error>({
+	return useQuery<UserDetails, Error>({
 		queryKey: ["user-details"],
 		queryFn: () => fetchUserDetails(token),
 		enabled: !!token,

@@ -1,27 +1,26 @@
 import { Loading } from "@/components/loading";
-import { type Skills, useUserDetails } from "@/hooks/api/getUserDetails";
-import { type LoginResponse, useLoginUser } from "@/hooks/api/useLoginUser";
+import {
+	type Project,
+	type SkillsUser,
+	useUserDetails,
+} from "@/hooks/api/getUserDetails";
+
 import { toast } from "@/hooks/use-toast";
-import { getItem, removeItem, setItem } from "@/lib/storage";
+import { getItem, removeItem } from "@/lib/storage";
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-interface UserLogin {
-	email: string;
-	password: string;
-}
 
 interface UserDetails {
 	name: string;
 	email: string;
 	id: string;
-	skills: Skills[];
+	skills: SkillsUser[];
+	projects: Project[];
 }
 
 interface AuthContextData {
 	user: UserDetails | null;
-	login: (user: UserLogin) => Promise<LoginResponse>;
 	signOut: () => void;
 	isAuthenticated: boolean;
 	loading: boolean;
@@ -37,7 +36,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const token = getItem("authToken") as string;
 
 	const { data, error, isLoading } = useUserDetails(token);
-	const { mutateAsync: userLogin } = useLoginUser();
 
 	useEffect(() => {
 		if (isLoading) {
@@ -47,6 +45,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		if (data) {
 			setUser(data);
 		}
+
+		console.log("User data:", data);
+
 		if (error) {
 			setUser(null);
 			removeItem("authToken");
@@ -54,12 +55,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 		setLoading(false);
 	}, [data, error, isLoading]);
-
-	const login = async (user: UserLogin): Promise<LoginResponse> => {
-		const response = await userLogin(user);
-		setItem("authToken", response.token);
-		return response;
-	};
 
 	const signOut = () => {
 		setUser(null);
@@ -80,7 +75,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		<AuthContext.Provider
 			value={{
 				user,
-				login,
 				signOut,
 				isAuthenticated: !!user,
 				loading,

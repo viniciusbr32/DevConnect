@@ -1,10 +1,11 @@
-import { ActivityFeed } from "./componentes/activityFeed";
+import { useAuth } from "@/contexts/authContext";
 import { DashboardLayout } from "./componentes/dashboardLayout";
-import { ProjectProgress } from "./componentes/projectProgress";
-import { RecentApplications } from "./componentes/recentesApplications";
-import { RecentProjects } from "./componentes/recentesProjects";
+import { MyProjects } from "./componentes/myProjects";
+
 import { StatsGrid } from "./componentes/statGrid";
 export function Dashboard() {
+	const { user, isAuthenticated } = useAuth();
+
 	return (
 		<DashboardLayout>
 			<div className="p-6 space-y-6">
@@ -13,18 +14,13 @@ export function Dashboard() {
 					<span className="text-zinc-400">Bem-vindo de volta!</span>
 				</div>
 				<StatsGrid />
-
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-					<RecentProjects />
-					<RecentApplications />
-				</div>
-
-				<div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-					<div className="lg:col-span-2">
-						<ProjectProgress />
-					</div>
-					<ActivityFeed />
-				</div>
+				{isAuthenticated &&
+					user &&
+					(user.projects.length > 0 ? (
+						<MyProjects projects={user.projects} />
+					) : (
+						<p className="text-center text-white">Nenhum Projeto criado</p>
+					))}
 			</div>
 		</DashboardLayout>
 	);
