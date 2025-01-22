@@ -1,4 +1,4 @@
-import { FormatedDate } from "@/utils/formatedData";
+import { FormatDifarenceDays, FormatedDate } from "@/utils/formatedData";
 import { Calendar, Users, GitPullRequest, AlertCircle } from "lucide-react";
 
 interface ProjectOverviewProps {
@@ -64,7 +64,9 @@ export function ProjectOverview({
 
 			<div className="space-y-4">
 				<div className="flex justify-between text-sm">
-					<span className="text-emerald-500">35 dias restantes</span>
+					<span className="text-emerald-500">
+						{FormatDifarenceDays(deadline)} dias restantes
+					</span>
 				</div>
 			</div>
 		</div>
