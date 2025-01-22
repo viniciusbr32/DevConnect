@@ -53,8 +53,8 @@ export function ApplicationModal({
 							<X className="w-5 h-5" />
 						</Button>
 
-						<div className="mb-6">
-							<h2 className="mb-4 text-xl font-semibold text-white">
+						<div className="mb-6 ">
+							<h2 className="mb-4 text-xl font-semibold text-white text-wrap ">
 								Candidatar-se para: {projectTitle}
 							</h2>
 

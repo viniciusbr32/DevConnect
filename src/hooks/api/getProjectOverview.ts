@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 interface User {
 	name: string;
+	id: string;
 }
 
 interface Application {

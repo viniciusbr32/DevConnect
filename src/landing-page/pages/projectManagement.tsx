@@ -3,6 +3,7 @@ import { MilestoneTracker } from "@/dashboard/componentes/projectManagement/mile
 import { ProjectOverview } from "@/dashboard/componentes/projectManagement/projectOverview";
 import { useFetchProjectOverview } from "@/hooks/api/getProjectOverview";
 import { useParams } from "react-router-dom";
+import { TeamManagement } from "@/dashboard/componentes/projectManagement/teamManagement";
 
 export function ProjectManagement() {
 	const { id } = useParams();
@@ -22,7 +23,8 @@ export function ProjectManagement() {
 				/>
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<MilestoneTracker milestone={data.milestones} />
-					{/* <TeamManagement /> */}
+
+					<TeamManagement team={data.applications} />
 				</div>
 				{/* <TaskBoard /> */}
 			</div>
