@@ -11,6 +11,7 @@ import { Loading } from "@/components/loading";
 import { useToast } from "@/hooks/use-toast";
 import { TechSelector } from "@/components/techSelector";
 import { useState } from "react";
+import { RoleSelector } from "@/components/roleSelector";
 
 interface SignupRequest {
 	name: string;
@@ -20,6 +21,9 @@ interface SignupRequest {
 
 export function SignUp() {
 	const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+	const [selectedRole, setSelectedRole] = useState<string>("");
+
+	console.log(selectedRole);
 
 	const mutation = useRegisterUser();
 	const { toast } = useToast();
@@ -32,8 +36,11 @@ export function SignUp() {
 
 	const handleRegister = (data: SignupRequest) => {
 		const { name, email, password } = data;
+
+		if (selectedRole === "") return;
+
 		mutation.mutate(
-			{ name, email, password },
+			{ name, email, password, role: selectedRole, skills: selectedTechs },
 			{
 				onSuccess: () => {
 					toast({
@@ -96,6 +103,12 @@ export function SignUp() {
 						selectedTechs={selectedTechs}
 						setSelectedTechs={setSelectedTechs}
 						label="Tecnologias que você conhece"
+					/>
+
+					<RoleSelector
+						selectedRole={selectedRole}
+						setSelectedRole={setSelectedRole}
+						label="Selecione seu cargo"
 					/>
 
 					<div className="space-y-2">

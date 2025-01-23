@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 interface User {
 	name: string;
 	id: string;
+	role: string;
 }
 
 interface Application {
@@ -18,7 +19,7 @@ interface Milestone {
 	status: "PENDING" | "COMPLETED";
 }
 
-interface Project {
+export interface Project {
 	createdAt: string;
 	title: string;
 	milestones: Milestone[];
@@ -39,7 +40,7 @@ async function fetchProjectOverview(id: string): Promise<Project> {
 
 export const useFetchProjectOverview = (id: string) => {
 	return useQuery<Project, Error>({
-		queryKey: ["get-projectsDetails"],
+		queryKey: ["get-projectOverview"],
 		queryFn: () => fetchProjectOverview(id),
 		retry: false,
 		enabled: !!id,

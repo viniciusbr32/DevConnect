@@ -5,6 +5,7 @@ interface TeamProps {
 	user: {
 		name: string;
 		id: string;
+		role: string;
 	};
 }
 
@@ -39,7 +40,7 @@ export function TeamManagement({ team }: TeamManagementProps) {
 							</div>
 							<div>
 								<h3 className="font-medium text-white">{member.user.name}</h3>
-								<p className="text-sm text-zinc-400">Tech Lead</p>
+								<p className="text-sm text-zinc-400">{member.user.role}</p>
 							</div>
 						</div>
 					</div>

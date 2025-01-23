@@ -7,6 +7,8 @@ interface RegisterData {
 	name: string;
 	email: string;
 	password: string;
+	role: string;
+	skills: string[];
 }
 
 interface RegisterResponse {

@@ -1,8 +1,19 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, FolderPlus, Users, Settings } from "lucide-react";
+import {
+	LayoutDashboard,
+	FolderPlus,
+	Users,
+	Settings,
+	Home,
+} from "lucide-react";
 
 export function Sidebar() {
 	const menuItems = [
+		{
+			icon: <Home className="w-5 h-5" />,
+			label: "Home",
+			path: "/",
+		},
 		{
 			icon: <LayoutDashboard className="w-5 h-5" />,
 			label: "Dashboard",

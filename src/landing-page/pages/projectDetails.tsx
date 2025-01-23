@@ -132,7 +132,7 @@ export function ProjectDetails() {
 										<TeamMemberCard
 											key={member.user.name}
 											name={member.user.name}
-											responsibility="Tech Lead"
+											responsibility={member.user.role}
 											avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
 											tech={member.user.skills.map((tech) => tech.name)}
 										/>
@@ -174,7 +174,9 @@ export function ProjectDetails() {
 										<h3 className="font-medium text-white">
 											{data.createdBy.name}
 										</h3>
-										<p className="text-sm text-zinc-400">Tech Lead</p>
+										<p className="text-sm text-zinc-400">
+											{data.createdBy.role}
+										</p>
 									</div>
 								</div>
 							</div>
