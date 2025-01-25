@@ -46,7 +46,7 @@ export function ProjectOverview({
 
 				<InfoCard
 					icon={Users}
-					label="equipe necessaria"
+					label="Equipe necessaria"
 					value={`${requiredMember} membros`}
 				/>
 			</div>
