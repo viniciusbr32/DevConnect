@@ -19,8 +19,8 @@ export function TeamManagement({ team }: TeamManagementProps) {
 			<div className="flex items-center justify-between mb-6">
 				<h2 className="text-lg font-semibold text-white">Equipe do Projeto</h2>
 				<Button variant="secondary">
-					<UserPlus className="w-4 h-4 mr-2" />
-					Adicionar Membro
+					<UserPlus className="w-4 h-4" />
+					Gerenciar Time
 				</Button>
 			</div>
 

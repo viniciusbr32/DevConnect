@@ -1,11 +1,13 @@
 import { FormatDifarenceDays, FormatedDate } from "@/utils/formatedData";
-import { Calendar, Users, GitPullRequest, AlertCircle } from "lucide-react";
+import { Calendar, Users } from "lucide-react";
+import { InfoCard } from "../info-card";
 
 interface ProjectOverviewProps {
 	title: string;
 	requiredMember: number;
 	createdAt: string;
 	deadline: string;
+	status: string;
 }
 
 export function ProjectOverview({
@@ -13,53 +15,40 @@ export function ProjectOverview({
 	title,
 	createdAt,
 	deadline,
+	status,
 }: ProjectOverviewProps) {
 	return (
 		<div className="p-6 border rounded-lg bg-zinc-800 border-zinc-700">
 			<div className="flex items-start justify-between mb-6">
 				<div>
 					<h1 className="text-2xl font-bold text-white">{title}</h1>
-					<p className="mt-1 capitalize text-zinc-400">
+					<p className="mt-1 text-zinc-400">
 						Projeto criado em {FormatedDate(createdAt)}
 					</p>
 				</div>
-				<span className="px-3 py-1 text-sm rounded-full bg-emerald-500/10 text-emerald-500">
-					Em Andamento
+				<span
+					className={`px-3 py-1 text-sm rounded-full ${
+						status === "ONGOING"
+							? "bg-emerald-500/10 text-emerald-500" // Em andamento
+							: "bg-blue-500/10 text-blue-500" // Concluído
+					}`}
+				>
+					{status === "ONGOING" ? "Em andamento" : "Concluído"}
 				</span>
 			</div>
 
 			<div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-4">
-				<div className="p-4 rounded-lg bg-zinc-700/50">
-					<div className="flex items-center gap-2 mb-2 text-zinc-400">
-						<Calendar className="w-4 h-4" />
-						<span>Prazo</span>
-					</div>
-					<p className="text-white">{FormatedDate(deadline)}</p>
-				</div>
+				<InfoCard
+					icon={Calendar}
+					label="Prazo"
+					value={FormatedDate(createdAt)}
+				/>
 
-				<div className="p-4 rounded-lg bg-zinc-700/50">
-					<div className="flex items-center gap-2 mb-2 text-zinc-400">
-						<Users className="w-4 h-4" />
-						<span>Equipe</span>
-					</div>
-					<p className="text-white">{requiredMember} membros</p>
-				</div>
-
-				<div className="p-4 rounded-lg bg-zinc-700/50">
-					<div className="flex items-center gap-2 mb-2 text-zinc-400">
-						<GitPullRequest className="w-4 h-4" />
-						<span>Pull Requests</span>
-					</div>
-					<p className="text-white">8 abertos</p>
-				</div>
-
-				<div className="p-4 rounded-lg bg-zinc-700/50">
-					<div className="flex items-center gap-2 mb-2 text-zinc-400">
-						<AlertCircle className="w-4 h-4" />
-						<span>Issues</span>
-					</div>
-					<p className="text-white">12 pendentes</p>
-				</div>
+				<InfoCard
+					icon={Users}
+					label="equipe necessaria"
+					value={`${requiredMember} membros`}
+				/>
 			</div>
 
 			<div className="space-y-4">

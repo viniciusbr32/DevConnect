@@ -20,6 +20,7 @@ export function ProjectManagement() {
 					requiredMember={data?.requiredMember}
 					createdAt={data.createdAt}
 					deadline={data.deadline}
+					status={data.status}
 				/>
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<MilestoneTracker milestone={data.milestones} />

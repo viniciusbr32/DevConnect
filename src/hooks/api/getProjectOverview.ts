@@ -26,6 +26,7 @@ export interface Project {
 	requiredMember: number;
 	applications: Application[];
 	deadline: string;
+	status: string;
 }
 
 async function fetchProjectOverview(id: string): Promise<Project> {
