@@ -4,6 +4,8 @@ import GerenciamentoCandidaturas from "../userManagementModal";
 import { useState } from "react";
 
 interface TeamProps {
+	status: "ACCEPTED" | "REJECTED" | "PENDING";
+	id: string;
 	user: {
 		name: string;
 		id: string;
@@ -13,10 +15,24 @@ interface TeamProps {
 
 interface TeamManagementProps {
 	team: TeamProps[];
+	requiredMember: number;
+	diferenceDays: string;
 }
 
-export function TeamManagement({ team }: TeamManagementProps) {
+export function TeamManagement({
+	team,
+	diferenceDays,
+	requiredMember,
+}: TeamManagementProps) {
 	const [modalOpen, setModalOpen] = useState(false);
+
+	const acceptedApplications = team
+		.filter((application) => application.status === "ACCEPTED")
+		.map((application) => application);
+
+	const rejectedApplications = team
+		.filter((application) => application.status === "PENDING")
+		.map((application) => application);
 
 	return (
 		<>
@@ -37,7 +53,7 @@ export function TeamManagement({ team }: TeamManagementProps) {
 				</div>
 
 				<div className="space-y-4">
-					{team.map((member) => (
+					{acceptedApplications.map((member) => (
 						<div
 							className="flex items-center justify-between p-3 rounded-lg bg-zinc-700/50"
 							key={member.user.id}
@@ -62,6 +78,10 @@ export function TeamManagement({ team }: TeamManagementProps) {
 			<GerenciamentoCandidaturas
 				open={modalOpen}
 				setOpen={() => setModalOpen(!modalOpen)}
+				acceptedApplication={acceptedApplications}
+				candidatures={rejectedApplications}
+				diferenceDays={diferenceDays}
+				requiredMember={requiredMember}
 			/>
 		</>
 	);

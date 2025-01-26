@@ -3,7 +3,6 @@ import {
 	format,
 	formatDistanceToNow,
 	parseISO,
-	startOfDay,
 } from "date-fns";
 import { ptBR } from "date-fns/locale";
 

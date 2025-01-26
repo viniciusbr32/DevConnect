@@ -10,6 +10,8 @@ interface User {
 
 interface Application {
 	user: User;
+	status: "ACCEPTED" | "REJECTED" | "PENDING";
+	id: string;
 }
 
 interface Milestone {

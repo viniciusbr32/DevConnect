@@ -46,8 +46,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			setUser(data);
 		}
 
-		console.log("User data:", data);
-
 		if (error) {
 			setUser(null);
 			removeItem("authToken");

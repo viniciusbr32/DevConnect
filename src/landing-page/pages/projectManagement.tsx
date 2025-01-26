@@ -7,7 +7,6 @@ import { TeamManagement } from "@/dashboard/componentes/projectManagement/teamMa
 
 export function ProjectManagement() {
 	const { id } = useParams();
-
 	const { data } = useFetchProjectOverview(id as string);
 
 	if (!data) return;
@@ -25,7 +24,11 @@ export function ProjectManagement() {
 				<div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
 					<MilestoneTracker milestone={data.milestones} />
 
-					<TeamManagement team={data.applications} />
+					<TeamManagement
+						team={data.applications}
+						diferenceDays={data.deadline}
+						requiredMember={data.requiredMember}
+					/>
 				</div>
 				{/* <TaskBoard /> */}
 			</div>
