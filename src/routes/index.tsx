@@ -8,7 +8,8 @@ import { createBrowserRouter } from "react-router-dom";
 import { PrivateRoute } from "./privateRoute";
 import { AuthProvider } from "@/contexts/authContext";
 import { CreateProject } from "@/dashboard/pages/createProject";
-import { ProjectManagement } from "@/landing-page/pages/projectManagement";
+import { ProjectManagement } from "@/dashboard/pages/projectManagement";
+import { Applications } from "@/dashboard/pages/applications";
 
 export const router = createBrowserRouter([
 	{
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
 			{
 				path: "/dashboard/novo-projeto",
 				element: <CreateProject />,
+			},
+			{
+				path: "/dashboard/candidaturas",
+				element: <Applications />,
 			},
 			{
 				path: "/dashboard/project/:id/gerenciar",

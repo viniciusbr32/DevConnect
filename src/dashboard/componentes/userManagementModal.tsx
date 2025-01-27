@@ -13,6 +13,9 @@ import { UserX, UserCheck, Clock, Users } from "lucide-react";
 import { FormatDifarenceDays } from "@/utils/formatedData";
 import { useCandidateStatus } from "@/hooks/api/useCandidateStatus";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+
+import { updateApplicationCache } from "@/utils/updateApplicationChace";
 
 interface Usuario {
 	status: "ACCEPTED" | "REJECTED" | "PENDING";
@@ -44,7 +47,12 @@ export default function GerenciamentoCandidaturas({
 	const { toast } = useToast();
 	const mutation = useCandidateStatus();
 
-	const acceptOrRejectCandidate = (id: string, status: string) => {
+	const queryClient = useQueryClient();
+
+	const acceptOrRejectCandidate = (
+		id: string,
+		status: "ACCEPTED" | "REJECTED",
+	) => {
 		mutation.mutate(
 			{
 				id,
@@ -54,9 +62,10 @@ export default function GerenciamentoCandidaturas({
 				onSuccess: () => {
 					toast({
 						description: `Candidatura ${status === "ACCEPTED" ? "Aceita" : "Rejeitada"} com sucesso`,
-						variant: `${status === "ACCEPTED" ? "sucess" : "destructive"}`,
+						variant: status === "ACCEPTED" ? "sucess" : "destructive",
 						duration: 800,
 					});
+					updateApplicationCache(queryClient, id, status);
 				},
 			},
 		);
