@@ -21,10 +21,10 @@ export function ProjectCard() {
 							className="object-cover w-full h-48 rounded-t-lg"
 						/>
 						<div className="p-6 ">
-							<h3 className="mb-2 text-xl font-semibold text-white">
+							<h3 className="mb-2 text-xl font-semibold text-white truncate">
 								{project.title}
 							</h3>
-							<p className="mb-4 text-zinc-400 line-clamp-2 ">
+							<p className="mb-4 truncate text-zinc-400 line-clamp-2">
 								{project.description}
 							</p>
 							<div className="flex flex-wrap gap-2 mb-4">

@@ -36,12 +36,6 @@ export function DropMenuUser({
 					>
 						Dashboard
 					</a>
-					<a
-						href="/dashboard/configuracoes"
-						className="block px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-700 hover:rounded-sm"
-					>
-						Configurações
-					</a>
 					<button
 						type="submit"
 						onClick={signOut}

@@ -30,6 +30,12 @@ export function Applications() {
 							tech={application.project.technologies.map((tech) => tech.name)}
 						/>
 					))}
+
+					{data?.length === 0 && (
+						<p className="text-white">
+							Você ainda não se candidatou a nenhum projeto
+						</p>
+					)}
 				</div>
 			</div>
 		</DashboardLayout>
