@@ -16,7 +16,7 @@ export function ProjectCard() {
 				<Link key={project.id} to={`/project/${project.id}`}>
 					<div className="truncate transition-all border rounded-lg bg-zinc-800 border-zinc-700 hover:border-emerald-500/50">
 						<img
-							src={image}
+							src={`http://localhost:3000/files/${project.banner}`}
 							alt={project.title}
 							className="object-cover w-full h-48 rounded-t-lg"
 						/>

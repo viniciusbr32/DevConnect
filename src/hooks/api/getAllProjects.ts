@@ -14,6 +14,7 @@ interface ProjectRequest {
 	technologies: Technologies[];
 	id: string;
 	createdAt: string;
+	banner: string;
 }
 
 async function fetchProjects(): Promise<ProjectRequest[]> {

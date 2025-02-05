@@ -11,6 +11,7 @@ import { useAuth } from "@/contexts/authContext";
 import { useToast } from "@/hooks/use-toast";
 import { Loading } from "@/components/loading";
 import { TechSelector } from "@/components/techSelector";
+import { UploadImg } from "../componentes/uploadImg";
 
 interface ProjectTypes {
 	title: string;
@@ -24,6 +25,45 @@ interface ProjectTypes {
 export function CreateProject() {
 	const [projectLevel, setProjectLevel] = useState<ProjectLevel>("BEGINNER");
 	const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
+	const [coverImage, setCoverImage] = useState<File | null>(null);
+	const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+	const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0];
+		if (file) {
+			if (file.size > 5 * 1024 * 1024) {
+				// 5MB limit
+				toast({
+					description: "A imagem deve ter no máximo 5MB",
+					variant: "destructive",
+					duration: 1000,
+				});
+				return;
+			}
+
+			if (!file.type.startsWith("image/")) {
+				toast({
+					description: "Por favor, selecione apenas arquivos de imagem",
+					variant: "destructive",
+					duration: 1000,
+				});
+				return;
+			}
+
+			setCoverImage(file);
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onloadend = () => {
+				setImagePreview(reader.result as string);
+			};
+		}
+	};
+
+	const removeImage = () => {
+		setCoverImage(null);
+		setImagePreview(null);
+	};
+
 	const { toast } = useToast();
 	const { user } = useAuth();
 	const {
@@ -40,6 +80,8 @@ export function CreateProject() {
 
 		const teamSizeNumber = Number(data.teamSize);
 
+		if (coverImage === null) return;
+
 		mutation.mutate(
 			{
 				title: data.title,
@@ -51,6 +93,7 @@ export function CreateProject() {
 				web_site: data.web_site,
 				url_github: data.url_github,
 				required_member: teamSizeNumber,
+				file: coverImage,
 			},
 			{
 				onSuccess: () => {
@@ -76,6 +119,15 @@ export function CreateProject() {
 				<form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
 					<div className="p-6 border rounded-lg bg-zinc-800 border-zinc-700">
 						<h2 className="mb-4 text-lg font-semibold text-white">
+							Imagem do Projeto
+						</h2>
+
+						<UploadImg
+							handleImageUpload={handleImageUpload}
+							imagePreview={imagePreview}
+							removeImage={removeImage}
+						/>
+						<h2 className="my-4 text-lg font-semibold text-white">
 							Informações Básicas
 						</h2>
 

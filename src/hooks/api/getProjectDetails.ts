@@ -38,6 +38,7 @@ interface Project {
 	url_github: string;
 	level: string;
 	remainingSpots: number;
+	banner: string;
 }
 
 async function fetchProjectDetails(id: string): Promise<Project> {

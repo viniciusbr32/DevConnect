@@ -12,6 +12,7 @@ interface Project {
 	web_site: string;
 	url_github: string;
 	required_member: number;
+	file: File;
 }
 
 export function useCreateProject() {
@@ -22,6 +23,7 @@ export function useCreateProject() {
 				const response = await api.post("/project", projectData, {
 					headers: {
 						Authorization: `Bearer ${token}`,
+						"Content-Type": "multipart/form-data",
 					},
 				});
 				return response.data;

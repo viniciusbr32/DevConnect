@@ -37,6 +37,8 @@ export function ProjectDetails() {
 		window.scrollTo(0, 0);
 	}, []);
 
+	console.log(data?.banner);
+
 	const handleApplicationSubmit = (data: CandidateData) => {
 		mutation.mutate(data, {
 			onSuccess: () => {
@@ -63,7 +65,7 @@ export function ProjectDetails() {
 						<div className="space-y-6 lg:col-span-2">
 							<div className="overflow-hidden border bg-zinc-800 rounded-xl border-zinc-700">
 								<img
-									src={image}
+									src={`http://localhost:3000/files/${data.banner}`}
 									alt={data.title}
 									className="object-cover w-full h-96"
 								/>
