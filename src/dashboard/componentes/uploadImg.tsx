@@ -36,7 +36,7 @@ export function UploadImg({
 							<span className="font-semibold">Clique para fazer upload</span> ou
 							arraste e solte
 						</p>
-						<p className="text-xs text-zinc-500">PNG, JPG ou GIF (máx. 5MB)</p>
+						<p className="text-xs text-zinc-500">PNG, JPG (máx. 5MB)</p>
 					</div>
 					<input
 						type="file"

@@ -9,14 +9,15 @@ DevConnect é uma plataforma colaborativa onde desenvolvedores podem cadastrar i
 - Cadastro e login de usuários.
 - Publicação de ideias de projetos com descrição, tecnologias necessárias e status.
 - Inscrição de colaboradores nos projetos.
-- Perfil do usuário com histórico de projetos criados e participados.
+- Aprovação ou rejeição de usuários inscritos nos projetos.
+- Remoção de colaboradores de um projeto.
+
 
 ## Tecnologias Utilizadas
 
-- **Frontend:** React, Tailwind CSS, Zod, React Hook Form
+- **Frontend:** React, Tailwind CSS,  React Hook Form
 - **Backend:** Node.js, Express, Prisma
 - **Banco de Dados:** PostgreSQL
-- **Autenticação:** Firebase Auth
 - **Hospedagem:** Vercel (frontend) e Railway (backend)
 
 ## Como Rodar o Projeto Localmente
@@ -29,7 +30,7 @@ DevConnect é uma plataforma colaborativa onde desenvolvedores podem cadastrar i
 ### Passo 1: Clone o repositório
 
 ```bash
-git clone https://github.com/seuusuario/devconnect.git
+git clone https://github.com/viniciusbr32/DevConnect.git
 cd devconnect
 ```
 
@@ -56,9 +57,9 @@ npm run dev
 
 ## Roadmap (MVP Inicial)
 
-- [ ] Cadastro e login de usuários
-- [ ] Publicação de projetos
-- [ ] Sistema de inscrições
+- [X] Cadastro e login de usuários
+- [X] Publicação de projetos
+- [X] Sistema de inscrições
 - [ ] Chat entre colaboradores
 - [ ] Avaliações e feedbacks
 

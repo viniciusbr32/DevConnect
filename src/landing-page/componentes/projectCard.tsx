@@ -2,8 +2,8 @@ import { Badge } from "@/components/ui/badge";
 import { useFetchProject } from "@/hooks/api/getAllProjects";
 import { Users, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import image from "../../assets/placeholder.svg";
+
 import { formatPublishedDate } from "@/utils/formatedData";
 
 export function ProjectCard() {
@@ -16,7 +16,11 @@ export function ProjectCard() {
 				<Link key={project.id} to={`/project/${project.id}`}>
 					<div className="truncate transition-all border rounded-lg bg-zinc-800 border-zinc-700 hover:border-emerald-500/50">
 						<img
-							src={`http://localhost:3000/files/${project.banner}`}
+							src={
+								project.banner
+									? `http://localhost:3000/files/${project.banner}`
+									: image
+							}
 							alt={project.title}
 							className="object-cover w-full h-48 rounded-t-lg"
 						/>
