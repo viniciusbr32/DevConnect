@@ -9,6 +9,7 @@ interface Technology {
 interface CreatedBy {
 	name: string;
 	role: string;
+	avatar: string;
 }
 
 interface Skills {
@@ -20,6 +21,7 @@ interface Application {
 		name: string;
 		skills: Skills[];
 		role: string;
+		avatar: string;
 	};
 }
 

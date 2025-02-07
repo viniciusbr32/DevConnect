@@ -26,7 +26,11 @@ export function Header() {
 					{isAuthenticated && user && (
 						<DropMenuUser
 							name={user.name}
-							avatarUrl="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+							avatarUrl={
+								user.avatar
+									? `http://localhost:3000/files/${user.avatar}`
+									: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+							}
 							isDropdownOpen={isDropdownOpen}
 							setIsOpen={setIsDropDownOpen}
 						/>

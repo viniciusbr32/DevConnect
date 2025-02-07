@@ -65,7 +65,7 @@ export function ApplicationModal({
 								</h3>
 								<div className="flex items-center gap-4 mb-4">
 									<img
-										src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+										src={`http://localhost:3000/files/${user?.avatar}`}
 										alt={user?.name}
 										className="w-12 h-12 rounded-full"
 									/>

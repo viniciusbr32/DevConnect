@@ -24,6 +24,7 @@ interface Usuario {
 		id: string;
 		name: string;
 		role: string;
+		avatar: string;
 	};
 }
 
@@ -115,7 +116,9 @@ export default function GerenciamentoCandidaturas({
 											>
 												<div className="flex items-center space-x-4">
 													<Avatar>
-														<AvatarImage src="/placeholder.svg?height=40&width=40" />
+														<AvatarImage
+															src={`http://localhost:3000/files/${usuario.user.avatar}`}
+														/>
 														<AvatarFallback>
 															{usuario.user.name.charAt(0)}
 														</AvatarFallback>

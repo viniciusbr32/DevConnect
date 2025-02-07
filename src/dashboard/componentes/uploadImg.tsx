@@ -41,7 +41,7 @@ export function UploadImg({
 					<input
 						type="file"
 						className="hidden"
-						accept="image/*"
+						accept="image/png, image/jpeg"
 						onChange={handleImageUpload}
 					/>
 				</label>

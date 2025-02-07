@@ -17,6 +17,7 @@ interface UserDetails {
 	id: string;
 	skills: SkillsUser[];
 	projects: Project[];
+	avatar: string;
 }
 
 interface AuthContextData {

@@ -20,6 +20,7 @@ interface ProjectTypes {
 	teamSize: number;
 	web_site: string;
 	url_github: string;
+	file: File;
 }
 
 export function CreateProject() {
@@ -51,6 +52,7 @@ export function CreateProject() {
 			}
 
 			setCoverImage(file);
+
 			const reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onloadend = () => {
@@ -121,16 +123,25 @@ export function CreateProject() {
 						<h2 className="mb-4 text-lg font-semibold text-white">
 							Imagem do Projeto
 						</h2>
-
 						<UploadImg
 							handleImageUpload={handleImageUpload}
 							imagePreview={imagePreview}
 							removeImage={removeImage}
+							{...register("file", {
+								validate: () => {
+									const file = coverImage;
+									if (file?.type !== "image/png" && "image/jpeg") {
+										return "Apenas arquivos PNG ou JPEG são permitidos";
+									}
+									return true;
+								},
+							})}
 						/>
+
+						{errors.file && <Errors message={errors.file.message} />}
 						<h2 className="my-4 text-lg font-semibold text-white">
 							Informações Básicas
 						</h2>
-
 						<div className="space-y-4">
 							<div className="space-y-2">
 								<Label
@@ -198,7 +209,7 @@ export function CreateProject() {
 								/>
 							</div>
 
-							{mutation.error && <Errors message={mutation.error.message} />}
+							{errors.deadline && <Errors message={errors.deadline.message} />}
 
 							<TechSelector
 								selectedTechs={selectedTechs}

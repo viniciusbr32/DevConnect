@@ -10,6 +10,7 @@ interface TeamProps {
 		name: string;
 		id: string;
 		role: string;
+		avatar: string;
 	};
 }
 
@@ -61,7 +62,7 @@ export function TeamManagement({
 							<div className="flex items-center space-x-3">
 								<div className="relative">
 									<img
-										src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+										src={`http://localhost:3000/files/${member.user.avatar}`}
 										alt={member.user.name}
 										className="w-10 h-10 rounded-full"
 									/>

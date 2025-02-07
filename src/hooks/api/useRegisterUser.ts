@@ -21,7 +21,11 @@ export function useRegisterUser() {
 	const mutation = useMutation({
 		mutationFn: async (userData: RegisterData): Promise<RegisterResponse> => {
 			try {
-				const response = await api.post("/users", userData);
+				const response = await api.post("/users", userData, {
+					headers: {
+						"Content-Type": "multipart/form-data",
+					},
+				});
 				return response.data;
 			} catch (err: unknown) {
 				if (axios.isAxiosError(err)) {

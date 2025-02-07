@@ -22,6 +22,7 @@ export interface UserDetails {
 	id: string;
 	skills: SkillsUser[];
 	projects: Project[];
+	avatar: string;
 }
 
 async function fetchUserDetails(token: string): Promise<UserDetails> {

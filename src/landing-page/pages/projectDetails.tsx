@@ -6,7 +6,6 @@ import { ArrowLeft, Calendar, Github, Globe, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ProjectRequirement } from "../componentes/projectRequirement";
 import { useFetchProjectDetails } from "@/hooks/api/getProjectDetails";
-import image from "../../assets/placeholder.svg";
 import { formatPublishedDate } from "@/utils/formatedData";
 import { ExternalLink } from "../componentes/externalLink";
 import { InfoBlock } from "../componentes/infoBlock";
@@ -135,7 +134,7 @@ export function ProjectDetails() {
 											key={member.user.name}
 											name={member.user.name}
 											responsibility={member.user.role}
-											avatar="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+											avatar={`http://localhost:3000/files/${member.user.avatar}`}
 											tech={member.user.skills.map((tech) => tech.name)}
 										/>
 									))}
@@ -168,7 +167,7 @@ export function ProjectDetails() {
 								</h2>
 								<div className="flex items-center space-x-4">
 									<img
-										src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&h=150&q=80"
+										src={`http://localhost:3000/files/${data.createdBy.avatar}`}
 										alt="Maria Silva"
 										className="w-12 h-12 rounded-full"
 									/>
